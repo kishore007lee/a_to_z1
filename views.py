@@ -3,7 +3,8 @@ from django.contrib.auth import authenticate, login,logout
 from .models import product_details
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
-from .models import products,shops
+from .models import products,lovis1,shops,lovis2,AM_plasma
+from django.db.models import Count
 
 # Create your views here.
 
@@ -59,15 +60,55 @@ def sign_out(request):
 
 def details(request):
 
-    a = request.GET["id"]
-    b = request.GET["id"]
-    if a is not None:
-        products1 = products.objects.filter(id = a)
-        return render(request, 'testing3.html', {'products1': products1})
-    elif b is not None:
-        shop_names = shops.objects.filter(id = b)
-        return render(request, 'testing3.html', {'shop_names':shop_names})
-    else:
-        return('home')
+    a = str(request.GET["pid"])
+    b = str(request.GET["sid"])
+    c= str(request.GET["product"])
 
+
+    if b =='none':
+        products1 = products.objects.filter(id =int(a))
+        products2 = shops.objects.all()
+
+        return render(request, 'testing3.html', {'products1': products1,'products2': products2})
+
+    elif a=='none':
+        products1 = shops.objects.filter(id = int(b))
+        for i in products1:
+            shop = i.shop_name
+        print('Lovis')
+        tt = '.objects.all()'
+
+        products2 = eval(shop+tt)
+        group = 'products_name1'
+        tt2 = '.objects.values(group).annotate(dcount=Count(group))'
+
+        result = eval(shop+tt2)
+        print(result)
+        return render(request, 'testing3.html', {'products1': products1,'products2': products2,'data':result})
+
+    elif a =='isproduct':
+        products1 = shops.objects.filter(id=int(b))
+        for i in products1:
+            shop = i.shop_name
+        print('Lovis')
+        #products1.shop_name
+
+        #products2 = lovis2.objects.filter(products_name1=c)
+        #result = (lovis2.objects
+        #          .values('products_name1')
+        #         .annotate(dcount=Count('products_name1'))
+        #          )
+
+        tt = '.objects.filter(products_name1=c)'
+
+        products2 = eval(shop + tt)
+        group = 'products_name1'
+        tt2 = '.objects.values(group).annotate(dcount=Count(group))'
+
+        result = eval(shop + tt2)
+        return render(request, 'testing3.html', {'products1': products1,'products2': products2,'data':result})
+
+
+def test(request):
+    pass
 

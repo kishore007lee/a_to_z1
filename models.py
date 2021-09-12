@@ -27,3 +27,25 @@ class shops(models.Model):
     desc = models.TextField()
     offer=models.BooleanField()
 
+class lovis1(models.Model):
+    tshirt=models.ImageField(upload_to= 'pics')
+    tshirt_name=models.CharField(max_length=100)
+    tshirt_price=models.TextField()
+    shirt = models.ImageField(upload_to='pics')
+    shirt_name = models.CharField(max_length=100)
+    shirt_price = models.TextField()
+    pant= models.ImageField(upload_to='pics')
+    pant_name = models.CharField(max_length=100)
+    pant_price = models.TextField()
+
+class lovis2(models.Model):
+    products_name1=models.TextField()
+    products_name2= models.TextField()
+    products_price=models.IntegerField()
+    products_img=models.ImageField(upload_to= 'pics')
+
+class AM_plasma(models.Model):
+    products_name1=models.TextField()
+    products_name2= models.TextField()
+    products_price=models.IntegerField()
+    products_img=models.ImageField(upload_to= 'pics')

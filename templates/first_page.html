@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="static/css/index1.css" />
+    <link  rel="stylesheet" href="static/css/swiper.min.css"/>
+    <link rel="stylesheet" href="static/css/style.css"/>
+    <link rel="stylesheet" href="static/css/index3.css"/>
+    <link rel="stylesheet" href="static/css/filter-shops.css" />
+
+
+    <title>dfds</title>
+</head>
+<body>
+<div class="topnav">
+
+    <a class="active" href="home">Home</a>
+    {%if user.is_authenticated %}
+    <div class="key">
+         Welcome,{{user.username}}
+    </div>
+        <a href="sign_out"><B>sign_out</B></a>
+    {% else %}
+        <a href="sign_up">sign_up</a>
+
+    {% endif %}
+    <input type="text" placeholder="Search..">
+</div>
+<br>
+<br>
+
+<!--slider 1 bags------------------------------------------>
+<div class="heading">
+
+</div>
+
+
+
+<div class="swiper-container">
+    <div class="swiper-wrapper">
+         {% for obj in products1 %}
+    <!--slide 1-------------------------------------->
+      <div class="swiper-slide">
+      <div class="slider-box">
+<p class="time">New</p>
+<div class="img-box">
+<a href="details?pid={{obj.id}}&sid=none&product=shirt" >
+<img src="{{obj.img.url}}">
+</a>
+</div>
+
+<p class="detail">{{obj.product_name}}
+
+<a href="#" class="price">{{obj.product_price}}</a>
+</p>
+<div class="cart">
+<a href="#" class="add_to_cart"
+    data-pid="{{obj.id}}"
+    data-img="{{obj.img.url}}"
+    data-product_name="{{obj.product_name}}"
+    data-product_price="{{obj.product_price}}">Add To Cart</a>
+</div>
+</div>
+
+      </div>
+
+          {% endfor %}
+    </div>
+</div>
+<br>
+<div class="shop-cat">
+    <ul>
+    <li>
+<a href="#">number of shops</a>
+
+<div class="dropdown">
+  <button onclick="myFunction()" class="dropbtn">Filter</button>
+  <div id="myDropdown" class="dropdown-content">
+    <a href="#home">Dress1</a>
+    <a href="#about">Food1</a>
+    <a href="#contact">Medicines1</a>
+      <a href="#home">Dress2</a>
+    <a href="#about">Food2</a>
+    <a href="#contact">Medicines2</a>
+  </div>
+</div>
+
+    </li>
+    </ul>
+</div>
+
+
+</div>
+<div class="grid-container">
+ {% for names in shops_names %}
+    <div>
+        <div class="swiper-slide">
+            <div class="slider-box">
+                {%if names.offer %}
+                <p class="time">Offer</p>
+                {%endif%}
+                <div class="img-box">
+                    <a href="details?sid={{names.id}}&pid=none&product=shirt" >
+                    <img src="{{names.img.url}}">
+                    </a>
+
+
+                </div>
+                <p class="detail">
+                    <a href="details" class="price">{{names.desc}}</a>
+                </p><div class="cart"><a href="details"> <a href="details?sid={{names.id}}&pid=none&product=shirt" >{{names.shop_name}}</a></a></div>
+            </div>
+        </div>
+    </div>
+
+ {% endfor %}
+</div>
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+<script type="text/javascript" src="static/js/swiper.min.js"></script>
+<script src="static/js/script.js"></script>
+<script src="static/js/order.js"></script>
+<script src="static/js/filter_shop.js"></script>
+
+
+
+</body>
+</html>

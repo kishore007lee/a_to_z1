@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<title>Shopping Cart</title>
+
+
+	 <link rel="stylesheet" href="static/css/index5.css"/>
+
+	<link rel="stylesheet" type="text/css" href="cart.css">
+
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+
+<div class="topnav">
+
+    <a class="active" href="home">Home</a>
+    {%if user.is_authenticated %}
+    <div class="key">
+         Welcome,{{user.username}}
+    </div>
+        <a href="sign_out"><B>sign_out</B></a>
+    {% else %}
+        <a href="sign_up">sign_up</a>
+
+    {% endif %}
+    <input type="text" placeholder="Search..">
+</div>
+
+<div class="container">
+
+	<h1>Shopping Cart</h1>
+
+	<div class="cart">
+
+		<div class="products">
+
+			<div id="cart-container"></div>
+
+		</div>
+
+		<div class="cart-total">
+
+			<p>
+
+				<span>Total Price</span>
+
+				<span>₹<span id="checkout_total_amount"></span></span>
+
+			</p>
+
+			<p>
+
+				<span>Number of Items</span>
+
+				<span id="checkout_total_item"></span>
+
+			</p>
+
+			<a href="#">Proceed to Checkout</a>
+
+		</div>
+
+	</div>
+
+</div>
+<script id="cart-details" type="template">
+<div class="product">
+
+				<img src="##img##">
+
+				<div class="product-info">
+
+					<h3 class="product-name">##product_name##
+						<span style="float: right;">₹##total##</span>
+					</h3>
+
+					<h4 class="product-price">₹##product_price##</h4>
+
+					<p class="product-quantity">Qnt: <input value="##qty##" min="1" type="number" class="input-product-qty" data-pid="##pid##" name="qty">
+
+					<p class="product-remove" data-pid="##pid##">
+						<i class="fa fa-trash" aria-hidden="true"></i>
+						<span class="remove">Remove</span>
+					</p>
+
+				</div>
+
+			</div>
+</script>
+
+<script type="text/javascript" src="static/js/jquery.min.js"></script>
+
+<script src="static/js/order.js"></script>
+</body>
+
+
+</html>

@@ -9,12 +9,33 @@ from django.db.models import Count
 
 
 def home(request):
-    products1= trending_products.objects.all()
-    products2=products.objects.all()
-    shops_names = shops.objects.all()
+    d=request.GET.get('name')
+    print(d)
+    if d is None:
+        products1= trending_products.objects.all()
+        products2=products.objects.all()
+        shops_names = shops.objects.all()
+        shop_filter = (shops.objects.values('category').annotate(dcount=Count('category')).order_by())
+        return render(request, 'first_page.html',
+                      {'products1': products1, 'shops_names': shops_names, 'products2': products2,
+                       'shop_filter':shop_filter})
+
+    elif d is not None:
+        print("ds", d)
+        products1 = trending_products.objects.all()
+        shops_names = shops.objects.filter(category=str(d))
+        shop_filter = (shops.objects.values('category').annotate(dcount=Count('category')).order_by())
+        print(shop_filter)
+        products2 = products.objects.all()
+        for i in shops_names:
+            print(i.shop_name)
+        return render(request, 'first_page.html',
+                      {'products1': products1,
+                       'shops_names': shops_names,'products2':products2,'shop_filter':shop_filter})
 
 
-    return render(request, 'first_page.html', {'products1': products1,'shops_names': shops_names,'products2':products2})
+
+
 
 def sign_up(request):
     if request.method == 'POST':
@@ -34,7 +55,7 @@ def sign_up(request):
                 user = User.objects.create_user(password=password1,username=user_name,email=email)
                 user.save();
                 print(" user created")
-                return redirect('/home')
+                return redirect('/sign_in')
         else:
             messages.info(request, 'password not matching ')
             return redirect('sign_up')
@@ -112,3 +133,5 @@ def details(request):
 def Add_cart(request):
     return render(request,'testing5.html')
 
+def test(request):
+    return render(request,'testing4.html')

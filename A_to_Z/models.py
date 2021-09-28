@@ -6,6 +6,7 @@ from django.db import models
 class shops(models.Model):
     shop_name = models.CharField(max_length=100)
     img = models.ImageField(upload_to= 'pics')
+    category= models.TextField()
     city = models.TextField()
 
 
@@ -14,6 +15,7 @@ class products(models.Model):
     shop_name = models.CharField(max_length=100)
     img = models.ImageField(upload_to= 'pics')
     category= models.TextField()
+    city = models.TextField()
     product_name = models.TextField()
     product_desc = models.TextField()
     product_price=models.IntegerField()

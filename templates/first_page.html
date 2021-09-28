@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="">
 <head>
-    <meta charset="UTF-8">
+
+ <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="static/css/index1.css" />
     <link  rel="stylesheet" href="static/css/swiper.min.css"/>
     <link rel="stylesheet" href="static/css/style.css"/>
@@ -9,12 +12,28 @@
     <link rel="stylesheet" href="static/css/filter-shops.css" />
 
 
-    <title>dfds</title>
+    <title>super_market</title>
 </head>
+<style>
+    @media only screen and (max-width: 600px) {
+
+    /* For mobile phones: */
+
+
+        .grid-container,topnav,shop-cat {
+
+
+            width: 100%;
+            height: auto;
+
+        }
+     }
+</style>
 <body>
 <div class="topnav">
 
-    <a class="active" href="home">Home</a>
+    <a class="active" href="home" ">Home</a>
+     <a class="active" href="#" ">About</a>
     {%if user.is_authenticated %}
     <div class="key">
          Welcome,{{user.username}}
@@ -24,6 +43,7 @@
         <a href="sign_up">sign_up</a>
 
     {% endif %}
+
     <input type="text" placeholder="Search..">
 </div>
 <br>
@@ -74,16 +94,19 @@
 <a href="#">number of shops</a>
 
 <div class="dropdown">
-  <button onclick="myFunction()" class="dropbtn">Filter</button>
+  <button onclick="myFunction()" class="dropbtn">Filter shops</button>
+
   <div id="myDropdown" class="dropdown-content">
-    <a href="#home">Dress1</a>
-    <a href="#about">Food1</a>
-    <a href="#contact">Medicines1</a>
-      <a href="#home">Dress2</a>
-    <a href="#about">Food2</a>
-    <a href="#contact">Medicines2</a>
+     {% for obj in shop_filter %}
+    <a href="home?name={{ obj.category }}">{{ obj.category }}</a>
+
+        {% endfor %}
   </div>
+
 </div>
+        <input type="text" placeholder="Search city.." onclick="">
+
+
 
     </li>
     </ul>
@@ -93,7 +116,7 @@
 </div>
 <div class="grid-container">
  {% for names in shops_names %}
-    <div>
+    <div class = "col-{{names.id}}">
         <div class="swiper-slide">
             <div class="slider-box">
                 {%if names.offer %}
@@ -120,8 +143,9 @@
 <script src="static/js/script.js"></script>
 <script src="static/js/order.js"></script>
 <script src="static/js/filter_shop.js"></script>
-
-
+<script src="static/js/topnav.js"></script>
+<script src="static/js/filter_shop.js"></script>
 
 </body>
+
 </html>
